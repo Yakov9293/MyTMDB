@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mytmdb.R
 import com.example.mytmdb.data.MovieService
 import com.example.mytmdb.data.MovieListAdapter
 import com.example.mytmdb.databinding.FragmentMoviesBinding
-import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,17 +28,12 @@ class MoviesFragment : Fragment() {
         binding.moviesList.layoutManager = LinearLayoutManager(activity)
         binding.moviesList.adapter = adapter
 
+        getPopularMoviesToAdapter()
 
         return binding.root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getPopularMovies()
-    }
-
-    private fun getPopularMovies() {
+    private fun getPopularMoviesToAdapter() {
         GlobalScope.launch(Dispatchers.Main) {
             val popularMoviesRequest = MovieService.tmdbApi.getPopular()
             try {
@@ -62,7 +54,7 @@ class MoviesFragment : Fragment() {
     }
 
     companion object {
-        const val TAG = "MoviesFragment"
+        private val TAG = MoviesFragment::class.java.simpleName
     }
 
 }
