@@ -14,8 +14,8 @@ import com.example.mytmdb.R
 import com.example.mytmdb.fragments.MoviesFragmentDirections
 import com.timqi.sectorprogressview.ColorfulRingProgressView
 
-class MovieListAdapter() :
-    ListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+class MovieListAdapter(val data: List<SimplifiedMovie>) :
+   /*ListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
     class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -44,9 +44,9 @@ class MovieListAdapter() :
         Glide.with(holder.itemView).load("https://image.tmdb.org/t/p/w500${getItem(position).poster_path}")
             .into(holder.itemView.findViewById(R.id.poster))
     }
-}
+}*/
 
-/*RecyclerView.Adapter<MoviesListAdapter.MoviesListViewHolder>() {
+RecyclerView.Adapter<MovieListAdapter.MoviesListViewHolder>() {
     class MoviesListViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesListViewHolder {
@@ -81,7 +81,7 @@ class MovieListAdapter() :
             .into(holder.view.findViewById(R.id.poster))
 
     }
-}*/
+}
 
 private class MovieDiffCallback : DiffUtil.ItemCallback<SimplifiedMovie>() {
 

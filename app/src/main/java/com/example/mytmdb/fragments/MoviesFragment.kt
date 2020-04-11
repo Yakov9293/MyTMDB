@@ -26,11 +26,9 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MoviesFragment", "onViewCreated")
         val recyclerMovies = (movies_list as RecyclerView)
         recyclerMovies.layoutManager = LinearLayoutManager(activity)
-        val adapter = MovieListAdapter()
-        recyclerMovies.adapter = adapter
+
 
         GlobalScope.launch(Dispatchers.Main) {
             val popularMoviesRequest = MovieService.tmdbApi.getPopular()
@@ -38,7 +36,7 @@ class MoviesFragment : Fragment() {
                 val response = popularMoviesRequest.await()
                 if (response.isSuccessful) {
                     val popularMovies = response.body()?.results
-                    adapter.submitList(popularMovies)
+                    popularMovies?.let { recyclerMovies.adapter = MovieListAdapter(it) }
                 } else {
                     Log.d("MainActivity ", response.errorBody().toString())
                 }
