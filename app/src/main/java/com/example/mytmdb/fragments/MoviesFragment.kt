@@ -37,7 +37,7 @@ class MoviesFragment : Fragment() {
         }
 
         viewModel.getPopularMovies()
-            .observe(viewLifecycleOwner, Observer<List<SimplifiedMovie>> { movies ->
+            .observe(viewLifecycleOwner, Observer { movies ->
                 listAdapter.submitList(movies)
             })
 
