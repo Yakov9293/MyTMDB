@@ -30,15 +30,22 @@ class MovieListAdapter() :
 
     class MovieViewHolder(private val binding: MoviesListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.setClickListener {
+                binding.movie?.let { movie ->
+                    navigateToDetailMovie(movie, it)
+                }
+            }
+        }
+
         fun bind(item: SimplifiedMovie) {
             binding.apply {
                 movie = item
-                setClickListener { navigateToPlant(item, it) }
                 executePendingBindings()
             }
         }
 
-        private fun navigateToPlant(movie: SimplifiedMovie, view: View) {
+        private fun navigateToDetailMovie(movie: SimplifiedMovie, view: View) {
             val direction =
                 MoviesFragmentDirections.actionMoviesFragmentToMovieFragment(
                     movie.id
