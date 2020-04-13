@@ -5,12 +5,20 @@
 
     <data>
 
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="movie"
+            type="com.example.mytmdb.data.SimplifiedMovie" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:onClick="@{clickListener}"
         android:padding="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:text="@{movie.title}"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -38,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:text="@{movie.original_title}"
                 android:textAlignment="textEnd"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="12sp"
@@ -52,6 +62,7 @@
                 android:id="@+id/poster"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                app:imageFromUrl="@{movie.poster_path}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H, 500:750"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,10 +72,12 @@
                 app:layout_constraintWidth_percent="0.4"
                 tools:src="@drawable/placeholder_movie_poster" />
 
+            <!--android:text="@{String.valueOf(movie.vote_average)}"-->
             <TextView
                 android:id="@+id/ratingDigit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text='@{String.format("%.0f", movie.vote_average*10)+"%"}'
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:layout_constrainedHeight="true"
@@ -88,7 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/poster"
                 app:layout_constraintTop_toTopOf="parent"
-                app:percent="50"
+                app:percent="@{movie.vote_average * 10}"
                 app:strokeWidth="4dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

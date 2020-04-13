@@ -11,42 +11,46 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mytmdb.R
+import com.example.mytmdb.databinding.MoviesListItemBinding
 import com.example.mytmdb.fragments.MoviesFragmentDirections
 import com.timqi.sectorprogressview.ColorfulRingProgressView
 
 class MovieListAdapter() :
     ListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class MovieViewHolder(private val binding: MoviesListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: SimplifiedMovie) {
+            binding.apply {
+                movie = item
+                setClickListener {
+                    navigateToPlant(item, it)
+                }
+                executePendingBindings()
+            }
+        }
+
+        private fun navigateToPlant(movie: SimplifiedMovie, view: View) {
+            val direction =
+                MoviesFragmentDirections.actionMoviesFragmentToMovieFragment(
+                    movie.id
+                )
+            view.findNavController().navigate(direction)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.movies_list_item,
-                parent,
+            MoviesListItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent,
                 false
             )
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(R.id.title).text = getItem(position).title
-        holder.itemView.findViewById<TextView>(R.id.original_title).text =
-            getItem(position).original_title
-        holder.itemView.findViewById<TextView>(R.id.ratingDigit).text =
-            "${(getItem(position).vote_average * 10).toInt()}%"
-        holder.itemView.findViewById<ColorfulRingProgressView>(R.id.rating).percent =
-            (getItem(position).vote_average * 10).toFloat()
-        holder.itemView.setOnClickListener {
-            val directions =
-                MoviesFragmentDirections.actionMoviesFragmentToMovieFragment(
-                    getItem(position).id
-                )
-            it.findNavController().navigate(directions)
-        }
-        Glide.with(holder.itemView)
-            .load("https://image.tmdb.org/t/p/w500${getItem(position).poster_path}")
-            .into(holder.itemView.findViewById(R.id.poster))
+        val movie = getItem(position)
+        (holder as MovieViewHolder).bind(movie)
     }
 }
 
