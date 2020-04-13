@@ -4,40 +4,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.mytmdb.R
 import com.example.mytmdb.databinding.MoviesListItemBinding
 import com.example.mytmdb.fragments.MoviesFragmentDirections
-import com.timqi.sectorprogressview.ColorfulRingProgressView
 
 class MovieListAdapter() :
     ListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
-
-    class MovieViewHolder(private val binding: MoviesListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: SimplifiedMovie) {
-            binding.apply {
-                movie = item
-                setClickListener {
-                    navigateToPlant(item, it)
-                }
-                executePendingBindings()
-            }
-        }
-
-        private fun navigateToPlant(movie: SimplifiedMovie, view: View) {
-            val direction =
-                MoviesFragmentDirections.actionMoviesFragmentToMovieFragment(
-                    movie.id
-                )
-            view.findNavController().navigate(direction)
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
@@ -52,6 +27,26 @@ class MovieListAdapter() :
         val movie = getItem(position)
         (holder as MovieViewHolder).bind(movie)
     }
+
+    class MovieViewHolder(private val binding: MoviesListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: SimplifiedMovie) {
+            binding.apply {
+                movie = item
+                setClickListener { navigateToPlant(item, it) }
+                executePendingBindings()
+            }
+        }
+
+        private fun navigateToPlant(movie: SimplifiedMovie, view: View) {
+            val direction =
+                MoviesFragmentDirections.actionMoviesFragmentToMovieFragment(
+                    movie.id
+                )
+            view.findNavController().navigate(direction)
+        }
+    }
+
 }
 
 private class MovieDiffCallback : DiffUtil.ItemCallback<SimplifiedMovie>() {
