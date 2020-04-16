@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytmdb.data.MovieListAdapter
-import com.example.mytmdb.data.SimplifiedMovie
 import com.example.mytmdb.databinding.FragmentMoviesBinding
 import com.example.mytmdb.viewmodel.MovieListViewModel
 
@@ -36,7 +35,7 @@ class MoviesFragment : Fragment() {
             adapter = listAdapter
         }
 
-        viewModel.getPopularMovies()
+        viewModel.popularMovies
             .observe(viewLifecycleOwner, Observer { movies ->
                 listAdapter.submitList(movies)
             })

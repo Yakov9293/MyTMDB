@@ -1,17 +1,13 @@
 package com.example.mytmdb.viewmodel
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.mytmdb.data.MovieService
 import com.example.mytmdb.data.SimplifiedMovie
-import com.example.mytmdb.fragments.MoviesFragment
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MovieListViewModel : ViewModel() {
@@ -20,19 +16,16 @@ class MovieListViewModel : ViewModel() {
         loadPopularMovies()
     }
 
-    private val popularMovies = MutableLiveData<List<SimplifiedMovie>>()
-
-    fun getPopularMovies():LiveData<List<SimplifiedMovie>> {
-        return popularMovies
-    }
+    private val _popularMovies = MutableLiveData<List<SimplifiedMovie>>()
+    val popularMovies: LiveData<List<SimplifiedMovie>> = _popularMovies
 
     private fun loadPopularMovies() {
-        GlobalScope.launch(Dispatchers.Main) {
+        this.viewModelScope.launch(Dispatchers.Main) {
             val popularMoviesRequest = MovieService.tmdbApi.getPopular()
             try {
                 val response = popularMoviesRequest.await()
                 if (response.isSuccessful) {
-                    response.body()?.results?.let { popularMovies.value = it }
+                    response.body()?.results?.let { _popularMovies.value = it }
                 } else {
                     Log.d(TAG, response.errorBody().toString())
                 }
