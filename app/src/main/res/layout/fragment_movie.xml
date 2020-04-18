@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/poster"
+            android:contentDescription="@string/content_description_for_poster_image"
             app:imageFromUrl="@{viewModel.detailMovie.poster_path}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
