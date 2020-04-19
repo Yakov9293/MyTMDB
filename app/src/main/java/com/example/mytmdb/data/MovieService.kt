@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object MovieService {
 
     private val authInterceptor = Interceptor { chain ->
-        val newUrl = chain.request().url()
+        val newUrl = chain.request().url
             .newBuilder()
             .addQueryParameter("api_key", Constants.tmdbApiKey)
             .build()
