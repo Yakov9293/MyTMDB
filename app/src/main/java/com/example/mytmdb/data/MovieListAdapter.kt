@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ import com.example.mytmdb.databinding.MoviesListItemBinding
 import com.example.mytmdb.fragments.MoviesFragmentDirections
 
 class MovieListAdapter() :
-    ListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
+    PagedListAdapter<SimplifiedMovie, RecyclerView.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
@@ -38,7 +39,7 @@ class MovieListAdapter() :
             }
         }
 
-        fun bind(item: SimplifiedMovie) {
+        fun bind(item: SimplifiedMovie?) {
             binding.apply {
                 movie = item
                 executePendingBindings()

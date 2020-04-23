@@ -6,13 +6,14 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TMDBApi {
 
     @GET("movie/popular?language=ru-RU")
-    fun getPopular(): Deferred<Response<MoviesResponse>>
+    fun getPopular(@Query("page") page: Int = 1): Deferred<Response<MoviesResponse>>
 
     @GET("movie/{movie_id}?language=ru-RU")
-    fun getMovieDetail(@Path("movie_id") movie_id:Int): Deferred<Response<DetailMovieResponse>>
+    fun getMovieDetail(@Path("movie_id") movie_id: Int): Deferred<Response<DetailMovieResponse>>
 
 }
