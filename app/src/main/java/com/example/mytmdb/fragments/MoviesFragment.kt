@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytmdb.data.MovieListAdapter
 import com.example.mytmdb.databinding.FragmentMoviesBinding
 import com.example.mytmdb.viewmodel.MovieListViewModel
+import com.mancj.materialsearchbar.MaterialSearchBar
 
 class MoviesFragment : Fragment() {
     private val listAdapter = MovieListAdapter()
@@ -34,6 +36,18 @@ class MoviesFragment : Fragment() {
                 }
             adapter = listAdapter
         }
+
+        binding.searchView.setOnSearchActionListener(object :
+            MaterialSearchBar.OnSearchActionListener {
+            override fun onButtonClicked(buttonCode: Int) {}
+
+            override fun onSearchStateChanged(enabled: Boolean) {}
+
+            override fun onSearchConfirmed(text: CharSequence?) {
+                viewModel.search(text.toString())
+            }
+
+        })
 
         viewModel.popularMovies
             .observe(viewLifecycleOwner, Observer { movies ->

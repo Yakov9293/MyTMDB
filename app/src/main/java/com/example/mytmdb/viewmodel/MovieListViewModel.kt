@@ -12,6 +12,8 @@ class MovieListViewModel : ViewModel() {
 
     val popularMovies = moviesDataSourceFactory.toLiveData(Config(30))
 
+    fun search(query: String = "") = moviesDataSourceFactory.updateQuery(query)
+
     companion object {
         private val TAG = MovieListViewModel::class.java.simpleName
     }

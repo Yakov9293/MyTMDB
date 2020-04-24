@@ -6,7 +6,7 @@ import com.example.mytmdb.data.MovieService
 import com.example.mytmdb.data.SimplifiedMovie
 import kotlinx.coroutines.*
 
-class PageKeyedMoviesDataSource(private val scope: CoroutineScope) :
+class PageKeyedMoviesDataSource(private val scope: CoroutineScope, private var query: String = "") :
     PageKeyedDataSource<Int, SimplifiedMovie>() {
     private val supervisorJob = SupervisorJob()
 
@@ -38,7 +38,13 @@ class PageKeyedMoviesDataSource(private val scope: CoroutineScope) :
     }
 
     private fun executeQuery(page: Int, callback: (List<SimplifiedMovie>) -> Unit) {
-        val movieRequest = MovieService.tmdbApi.getPopular(page)
+
+        val movieRequest =
+            if (query.isEmpty())
+                MovieService.tmdbApi.getPopular(page)
+            else
+                MovieService.tmdbApi.getMovies(page, query)
+
         scope.launch(getJobErrorHandler() + supervisorJob) {
             val response = movieRequest.await()
             if (response.isSuccessful) {
