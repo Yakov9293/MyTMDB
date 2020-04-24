@@ -10,7 +10,7 @@ class MovieListViewModel : ViewModel() {
 
     private val moviesDataSourceFactory = PageKeyedMoviesDataSourceFactory(this.viewModelScope)
 
-    val popularMovies = moviesDataSourceFactory.toLiveData(Config(30))
+    val topRatingMovies = moviesDataSourceFactory.toLiveData(Config(30))
 
     fun search(query: String = "") = moviesDataSourceFactory.updateQuery(query)
 

@@ -10,10 +10,10 @@ import retrofit2.http.Query
 
 interface TMDBApi {
 
-    @GET("movie/popular?language=ru-RU")
-    fun getPopular(@Query("page") page: Int = 1): Deferred<Response<MoviesResponse>>
+    @GET("movie/top_rated?language=ru-RU&region=RU")
+    fun getTopRating(@Query("page") page: Int = 1): Deferred<Response<MoviesResponse>>
 
-    @GET("search/movie?language=ru-RU")
+    @GET("search/movie?language=ru-RU&region=RU&include_adult=true")
     fun getMovies(@Query("page") page: Int = 1, @Query("query") query: String): Deferred<Response<MoviesResponse>>
 
     @GET("movie/{movie_id}?language=ru-RU")

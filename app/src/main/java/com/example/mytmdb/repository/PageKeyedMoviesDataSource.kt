@@ -41,7 +41,7 @@ class PageKeyedMoviesDataSource(private val scope: CoroutineScope, private var q
 
         val movieRequest =
             if (query.isEmpty())
-                MovieService.tmdbApi.getPopular(page)
+                MovieService.tmdbApi.getTopRating(page)
             else
                 MovieService.tmdbApi.getMovies(page, query)
 
