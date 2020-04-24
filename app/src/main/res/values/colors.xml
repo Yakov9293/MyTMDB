@@ -7,5 +7,5 @@
     <color name="backgroundLight">#F1F1F1</color>
     <color name="statusbarLight">#F1F1F1</color>
     <color name="statusbarDark">#C3C3C3</color>
-
+    <color name="navigationBarColor">#0C112B</color>
 </resources>
