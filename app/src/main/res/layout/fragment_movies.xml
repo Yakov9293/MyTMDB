@@ -10,15 +10,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.MoviesFragment">
+        tools:context=".fragments.MoviesFragment"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp">
 
 
         <com.mancj.materialsearchbar.MaterialSearchBar
             android:id="@+id/search_view"
             style="@style/MaterialSearchBarLight"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:mt_hint="Введите название фильма"
@@ -28,12 +31,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movies_list"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_view"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/search_view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
