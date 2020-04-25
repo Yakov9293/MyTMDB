@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.example.mytmdb.model.NetworkState" />
+
         <variable
             name="viewModel"
             type="com.example.mytmdb.viewmodel.DetailMovieViewModel" />
@@ -18,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_description_for_poster_image"
+            android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
             app:imageFromUrl="@{viewModel.detailMovie.poster_path}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,8 +29,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.detailMovie.title}"
+            android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.networkState == NetworkState.LOADING}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

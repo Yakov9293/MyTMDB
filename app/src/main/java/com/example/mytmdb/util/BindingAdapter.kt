@@ -1,7 +1,9 @@
 package com.example.mytmdb.util
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.mytmdb.R
@@ -27,4 +29,9 @@ fun bindPercentForRingProgressView(view: ColorfulRingProgressView, percent: Doub
     percent?.let {
         view.percent = percent.toFloat()
     }
+}
+
+@BindingConversion
+fun convertColorToDrawable(visible: Boolean): Int {
+    return if (visible) View.VISIBLE else View.GONE
 }
