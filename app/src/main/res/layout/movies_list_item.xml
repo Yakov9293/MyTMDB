@@ -72,37 +72,33 @@
                 app:layout_constraintWidth_percent="0.4"
                 tools:src="@drawable/placeholder_movie_poster" />
 
-            <!--android:text="@{String.valueOf(movie.vote_average)}"-->
-            <TextView
-                android:id="@+id/ratingDigit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text='@{String.format("%.0f", movie.vote_average*10)+"%"}'
-                android:textAlignment="center"
-                android:textStyle="bold"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/poster"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="50%" />
-
-
-            <com.timqi.sectorprogressview.ColorfulRingProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/rating"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_margin="5dp"
-                app:bgColor="#B6D4FF"
-                app:fgColorEnd="#0055FF"
-                app:fgColorStart="#0055FF"
+                android:padding="5dp"
+                app:cpv_textSize="16sp"
+                app:cpv_textMode="Value"
+                app:cpv_barColor="#21B8F3"
+                app:cpv_barColor1="#216AF3"
+                app:cpv_barColor2="#2125F3"
+                app:cpv_barColor3="#7521F3"
+                app:cpv_barWidth="5dp"
+                app:cpv_innerContourSize="0dp"
+                app:cpv_maxValue="10"
+                app:cpv_outerContourSize="0dp"
+                app:cpv_rimColor="#BBDEFB"
+                app:cpv_rimWidth="5dp"
+                app:cpv_roundToBlock="false"
+                app:cpv_roundToWholeNumber="false"
+                app:cpv_textColor="#1976D2"
+                app:cpv_value="@{movie.vote_average}"
+                app:cpv_decimalFormat="0.0#"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/poster"
-                app:layout_constraintTop_toTopOf="parent"
-                app:percent="@{movie.vote_average * 10}"
-                app:strokeWidth="4dp" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

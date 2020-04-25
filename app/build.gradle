@@ -85,7 +85,14 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:2.1.2"
 
     //Circular Progress View
+    implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4'
     implementation 'com.timqi.sectorprogressview:library:2.0.1'
+
+    //Test Circular Progress Bar
+    /*implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4' all
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+    implementation 'com.timqi.sectorprogressview:library:2.0.1'
+    https://github.com/Fichardu/CircleProgress*/
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'

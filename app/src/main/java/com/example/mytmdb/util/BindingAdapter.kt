@@ -1,9 +1,11 @@
 package com.example.mytmdb.util
 
+import android.graphics.Typeface
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
+import at.grabner.circleprogress.CircleProgressView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.mytmdb.R
@@ -24,10 +26,11 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
     }
 }
 
-@BindingAdapter("app:percent")
-fun bindPercentForRingProgressView(view: ColorfulRingProgressView, percent: Double?) {
+@BindingAdapter("app:cpv_value")
+fun bindPercentForRingProgressView(view: CircleProgressView, percent: Double?) {
     percent?.let {
-        view.percent = percent.toFloat()
+        view.setValue(percent.toFloat())
+        view.setTextTypeface(Typeface.DEFAULT)
     }
 }
 
