@@ -86,7 +86,6 @@ dependencies {
 
     //Circular Progress View
     implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4'
-    implementation 'com.timqi.sectorprogressview:library:2.0.1'
 
     //Test Circular Progress Bar
     /*implementation 'com.github.jakob-grabner:Circle-Progress-View:1.4' all

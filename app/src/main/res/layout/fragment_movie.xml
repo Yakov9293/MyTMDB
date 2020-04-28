@@ -32,27 +32,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/empty_backdrop"/>
+                tools:src="@drawable/empty_backdrop" />
 
             <ImageView
                 android:id="@+id/poster"
-                android:layout_marginEnd="20dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_for_poster_image"
                 android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.poster_path != null &amp;&amp; !viewModel.detailMovie.poster_path.empty}"
                 app:backdropFromUrl="@{viewModel.detailMovie.poster_path}"
-                app:layout_constraintWidth_percent="0.25"
-                app:layout_constraintTop_toBottomOf="@id/backdrop"
                 app:layout_constraintBottom_toBottomOf="@id/backdrop"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:src="@drawable/empty_poster"
-                android:contentDescription="@string/content_description_for_poster_image"
-                />
+                app:layout_constraintTop_toBottomOf="@id/backdrop"
+                app:layout_constraintWidth_percent="0.25"
+                tools:src="@drawable/empty_poster" />
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="18dp"
                 android:text="@{viewModel.detailMovie.title}"
@@ -63,11 +62,12 @@
                 app:layout_constraintHorizontal_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/backdrop"
+                app:layout_constraintWidth_percent="0.6"
                 tools:text="Побег из Шоушенка" />
 
             <TextView
                 android:id="@+id/original_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@{viewModel.detailMovie.original_title}"
@@ -78,7 +78,15 @@
                 app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintWidth_percent="0.6"
                 tools:text="The Shawshank Redemption" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="original_title,title,poster" />
 
             <View
                 android:id="@+id/divider1"
@@ -89,7 +97,7 @@
                 android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.tagline != null &amp;&amp; !viewModel.detailMovie.tagline.isEmpty()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/original_title" />
+                app:layout_constraintTop_toBottomOf="@id/barrier" />
 
             <TextView
                 android:id="@+id/tagline"

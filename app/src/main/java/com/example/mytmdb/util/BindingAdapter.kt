@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.mytmdb.R
 import com.example.mytmdb.util.Constants.TMDB_BASE_IMAGE_URL
-import com.timqi.sectorprogressview.ColorfulRingProgressView
 
 @BindingAdapter("posterFromUrl")
 fun bindPosterFromUrl(view: ImageView, imageUrl: String?) {
@@ -20,8 +19,7 @@ fun bindPosterFromUrl(view: ImageView, imageUrl: String?) {
             .error(R.drawable.empty_poster)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
-    }
-    else{
+    } else {
         view.setImageResource(R.drawable.empty_poster)
     }
 }
@@ -34,8 +32,7 @@ fun bindBackdropFromUrl(view: ImageView, imageUrl: String?) {
             .error(R.drawable.empty_backdrop)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
-    }
-    else{
+    } else {
         view.setImageResource(R.drawable.empty_backdrop)
     }
 }
