@@ -12,54 +12,138 @@
             type="com.example.mytmdb.viewmodel.DetailMovieViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/backdrop"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/content_description_for_poster_image"
-            android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
-            app:backdropFromUrl="@{viewModel.detailMovie.backdrop_path}"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintDimensionRatio="H,25:14"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="18dp"
-            android:text="@{viewModel.detailMovie.title}"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/backdrop"
-            tools:text="Побег из Шоушенка" />
+            <ImageView
+                android:id="@+id/backdrop"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_for_poster_image"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
+                app:backdropFromUrl="@{viewModel.detailMovie.backdrop_path}"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintDimensionRatio="H,25:14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/original_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@{viewModel.detailMovie.original_title}"
-            android:textColor="@color/titleTextColor"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; !viewModel.detailMovie.original_title.equals(viewModel.detailMovie.title)}"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toStartOf="@+id/title"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            tools:text="The Shawshank Redemption" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:text="@{viewModel.detailMovie.title}"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/backdrop"
+                tools:text="Побег из Шоушенка" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/original_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{viewModel.detailMovie.original_title}"
+                android:textColor="@color/titleTextColor"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; !viewModel.detailMovie.original_title.equals(viewModel.detailMovie.title)}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="@+id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="The Shawshank Redemption" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="?android:attr/listDivider"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.tagline != null &amp;&amp; !viewModel.detailMovie.tagline.isEmpty()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/original_title" />
+
+            <TextView
+                android:id="@+id/tagline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:breakStrategy="balanced"
+                android:text="@{viewModel.detailMovie.tagline}"
+                android:textAlignment="center"
+                android:textColor="@color/titleTextColor"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.tagline != null &amp;&amp; !viewModel.detailMovie.tagline.isEmpty()}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider1"
+                tools:text="Страх - это кандалы. Надежда - это свобода."
+
+                />
+
+            <View
+                android:id="@+id/divider_under_overview_container"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="?android:attr/listDivider"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.tagline != null &amp;&amp; !viewModel.detailMovie.tagline.isEmpty()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tagline" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/overview_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:paddingBottom="20dp"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED  &amp;&amp; viewModel.detailMovie.overview != null &amp;&amp; !viewModel.detailMovie.overview.isEmpty()}"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_under_overview_container"
+                app:layout_goneMarginTop="16dp">
+
+                <TextView
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@{viewModel.detailMovie.overview}"
+                    android:textAlignment="center"
+                    android:textColor="@color/titleTextColor"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 
 </layout>
