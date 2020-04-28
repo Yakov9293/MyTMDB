@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyTMDB</string>
     <string name="content_description_for_poster_image">Poster</string>
+    <string name="content_description_for_backdrop_image">Backdrop</string>
 </resources>

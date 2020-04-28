@@ -49,6 +49,6 @@ fun bindPercentForRingProgressView(view: CircleProgressView, percent: Double?) {
 }
 
 @BindingConversion
-fun convertColorToDrawable(visible: Boolean): Int {
+fun convertBooleanToVisible(visible: Boolean): Int {
     return if (visible) View.VISIBLE else View.GONE
 }

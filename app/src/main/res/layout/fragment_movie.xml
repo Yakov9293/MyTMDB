@@ -24,15 +24,31 @@
                 android:id="@+id/backdrop"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/content_description_for_poster_image"
+                android:contentDescription="@string/content_description_for_backdrop_image"
                 android:visibility="@{viewModel.networkState == NetworkState.LOADED}"
                 app:backdropFromUrl="@{viewModel.detailMovie.backdrop_path}"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintDimensionRatio="H,25:14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/empty_backdrop"/>
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_marginEnd="20dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.poster_path != null &amp;&amp; !viewModel.detailMovie.poster_path.empty}"
+                app:backdropFromUrl="@{viewModel.detailMovie.poster_path}"
+                app:layout_constraintWidth_percent="0.25"
+                app:layout_constraintTop_toBottomOf="@id/backdrop"
+                app:layout_constraintBottom_toBottomOf="@id/backdrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@drawable/empty_poster"
+                android:contentDescription="@string/content_description_for_poster_image"
+                />
 
             <TextView
                 android:id="@+id/title"
@@ -135,7 +151,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/titleTextColor"
                     android:textSize="16sp"
-                    android:textStyle="italic"
                     tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
 
             </androidx.cardview.widget.CardView>
