@@ -12,17 +12,31 @@ import com.example.mytmdb.R
 import com.example.mytmdb.util.Constants.TMDB_BASE_IMAGE_URL
 import com.timqi.sectorprogressview.ColorfulRingProgressView
 
-@BindingAdapter("imageFromUrl")
-fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
+@BindingAdapter("posterFromUrl")
+fun bindPosterFromUrl(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         Glide.with(view.context)
             .load(TMDB_BASE_IMAGE_URL + imageUrl)
-            .error(R.drawable.placeholder_movie_poster)
+            .error(R.drawable.empty_poster)
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(view)
     }
     else{
-        view.setImageResource(R.drawable.placeholder_movie_poster)
+        view.setImageResource(R.drawable.empty_poster)
+    }
+}
+
+@BindingAdapter("backdropFromUrl")
+fun bindBackdropFromUrl(view: ImageView, imageUrl: String?) {
+    if (!imageUrl.isNullOrEmpty()) {
+        Glide.with(view.context)
+            .load(TMDB_BASE_IMAGE_URL + imageUrl)
+            .error(R.drawable.empty_backdrop)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(view)
+    }
+    else{
+        view.setImageResource(R.drawable.empty_backdrop)
     }
 }
 

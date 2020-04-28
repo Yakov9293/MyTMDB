@@ -62,7 +62,7 @@
                 android:id="@+id/poster"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:imageFromUrl="@{movie.poster_path}"
+                app:posterFromUrl="@{movie.poster_path}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="H, 500:750"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.4"
-                tools:src="@drawable/placeholder_movie_poster" />
+                tools:src="@drawable/empty_poster" />
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/rating"
