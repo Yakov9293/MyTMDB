@@ -35,6 +35,8 @@ class MoviesFragment : Fragment() {
                 }
             adapter = listAdapter
         }
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.searchView.setOnSearchActionListener(object :
             MaterialSearchBar.OnSearchActionListener {
