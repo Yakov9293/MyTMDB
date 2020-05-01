@@ -29,8 +29,10 @@ fun bindBackdropFromUrl(view: ImageView, imageUrl: String?) {
     if (!imageUrl.isNullOrEmpty()) {
         Glide.with(view.context)
             .load(TMDB_BASE_IMAGE_URL + imageUrl)
+            .placeholder(R.drawable.empty_backdrop)
             .error(R.drawable.empty_backdrop)
             .transition(DrawableTransitionOptions.withCrossFade())
+            .dontTransform()
             .into(view)
     } else {
         view.setImageResource(R.drawable.empty_backdrop)

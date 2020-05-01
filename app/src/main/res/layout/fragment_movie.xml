@@ -41,7 +41,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/content_description_for_poster_image"
                 android:visibility="@{viewModel.networkState == NetworkState.LOADED &amp;&amp; viewModel.detailMovie.poster_path != null &amp;&amp; !viewModel.detailMovie.poster_path.empty}"
-                app:backdropFromUrl="@{viewModel.detailMovie.poster_path}"
+                app:posterFromUrl="@{viewModel.detailMovie.poster_path}"
                 app:layout_constraintBottom_toBottomOf="@id/backdrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/backdrop"
