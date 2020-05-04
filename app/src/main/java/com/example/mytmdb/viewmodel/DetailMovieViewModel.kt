@@ -24,19 +24,21 @@ class DetailMovieViewModel(private val id_movie: Int) : ViewModel() {
     }
 
 
-
-    private fun loadDetailMovieRequest() {
+    fun loadDetailMovieRequest() {
         this.viewModelScope.launch(Dispatchers.Main) {
             val detailMovieRequest = MovieService.tmdbApi.getMovieDetail(id_movie)
             try {
                 val response = detailMovieRequest.await()
-                _networkState.value = NetworkState.LOADED
+
                 if (response.isSuccessful) {
+                    _networkState.value = NetworkState.LOADED
                     response.body()?.let { _detailMovie.value = it }
                 } else {
+                    _networkState.value = NetworkState.FAILED
                     Log.d(TAG, response.errorBody().toString())
                 }
             } catch (e: Exception) {
+                _networkState.value = NetworkState.FAILED
                 Log.d(TAG, e.toString())
             }
         }

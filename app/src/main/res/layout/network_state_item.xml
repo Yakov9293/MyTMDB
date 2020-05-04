@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.mytmdb.model.NetworkState" />
+
+        <variable
+            name="retryCallback"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="networkState"
+            type="com.example.mytmdb.model.NetworkState" />
+
+        <variable
+            name="initialNetworkState"
+            type="com.example.mytmdb.model.NetworkState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:visibility="@{initialNetworkState != NetworkState.LOADING}">
+
+        <TextView
+            android:id="@+id/error_connection_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connection_error_msg"
+            android:visibility="@{networkState == NetworkState.FAILED &amp;&amp; initialNetworkState != NetworkState.LOADING}"
+            app:layout_constraintBottom_toTopOf="@id/error_connection_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/error_connection_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{retryCallback}"
+            android:text="@string/retry"
+            android:visibility="@{networkState == NetworkState.FAILED &amp;&amp; initialNetworkState != NetworkState.LOADING}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_connection_text" />
+
+        <at.grabner.circleprogress.CircleProgressView
+            android:id="@+id/circle_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:visibility="@{networkState == NetworkState.LOADING &amp;&amp; initialNetworkState != NetworkState.LOADING}"
+            app:cpv_barWidth="6dp"
+            app:cpv_innerContourSize="0dp"
+            app:cpv_outerContourSize="0dp"
+            app:cpv_rimColor="#90FBE6"
+            app:cpv_rimWidth="6dp"
+            app:cpv_spin="true"
+            app:cpv_spinBarLength="180"
+            app:cpv_spinColor="#28CDFF"
+            app:cpv_spinSpeed="10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.13" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

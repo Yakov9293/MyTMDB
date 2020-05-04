@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="com.example.mytmdb.model.NetworkState" />
+
+        <variable
+            name="retryCallback"
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="viewModel"
@@ -14,12 +19,50 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.MoviesFragment"
         android:paddingStart="5dp"
-        android:paddingEnd="5dp">
+        android:paddingEnd="5dp"
+        tools:context=".fragments.MoviesFragment">
 
+        <ImageView
+            android:id="@+id/satellite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/satellite"
+            android:visibility="@{viewModel.initialNetworkState == NetworkState.FAILED}"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/error_connection_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_view"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.3" />
 
+        <TextView
+            android:id="@+id/error_connection_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:text="@string/connection_error_msg"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:visibility="@{viewModel.initialNetworkState == NetworkState.FAILED}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_view" />
 
+        <Button
+            android:id="@+id/error_connection_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="@{retryCallback}"
+            android:text="@string/retry"
+            android:visibility="@{viewModel.initialNetworkState == NetworkState.FAILED}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/error_connection_text" />
 
         <com.mancj.materialsearchbar.MaterialSearchBar
             android:id="@+id/search_view"
@@ -50,9 +93,9 @@
             android:id="@+id/circle_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="@{viewModel.initialNetworkState == NetworkState.LOADING}"
             app:cpv_barWidth="6dp"
             app:cpv_innerContourSize="0dp"
-            android:visibility="@{viewModel.networkState == NetworkState.LOADING}"
             app:cpv_outerContourSize="0dp"
             app:cpv_rimColor="#90FBE6"
             app:cpv_rimWidth="6dp"
@@ -60,10 +103,10 @@
             app:cpv_spinBarLength="180"
             app:cpv_spinColor="#28CDFF"
             app:cpv_spinSpeed="10"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.13" />
 

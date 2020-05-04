@@ -16,7 +16,7 @@ import com.example.mytmdb.viewmodel.MovieListViewModel
 import com.mancj.materialsearchbar.MaterialSearchBar
 
 class MoviesFragment : Fragment() {
-    private val listAdapter = MovieListAdapter()
+    private val listAdapter = MovieListAdapter { viewModel.retry() }
     private val viewModel: MovieListViewModel by viewModels()
 
     override fun onCreateView(
@@ -37,6 +37,7 @@ class MoviesFragment : Fragment() {
         }
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.setRetryCallback { viewModel.retry() }
 
         binding.searchView.setOnSearchActionListener(object :
             MaterialSearchBar.OnSearchActionListener {
@@ -45,6 +46,8 @@ class MoviesFragment : Fragment() {
             override fun onSearchStateChanged(enabled: Boolean) {}
 
             override fun onSearchConfirmed(text: CharSequence?) {
+                binding.moviesList.scrollToPosition(0)
+                (binding.moviesList.adapter as? MovieListAdapter)?.submitList(null)
                 viewModel.search(text.toString())
             }
 
@@ -55,8 +58,14 @@ class MoviesFragment : Fragment() {
                 listAdapter.submitList(movies)
             })
 
+        viewModel.networkState
+            .observe(viewLifecycleOwner, Observer {
+                listAdapter.setNetworkState(it, viewModel.initialNetworkState.value)
+            })
+
         return binding.root
     }
+
 
     companion object {
         private val TAG = MoviesFragment::class.java.simpleName
